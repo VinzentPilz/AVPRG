@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    width: 50%;
+    height: 50%;
+    float: left;
+    border: none;
+}
+
+
+#button1 {
+    background: #d57f5f;
+}
+
+#button2 {
+    background: #d4ad6f;
+}
+
+#button3 {
+    background: #c1cb7c;
+}
+
+#button4 {
+    background: #6a9486;
+}
+
+
+#button1:active {
+    background: white;
+}
+
+#button2:active {
+    background: white;
+}
+
+#button3:active {
+    background: white;
+}
+
+#button4:active {
+    background: white;
+}
