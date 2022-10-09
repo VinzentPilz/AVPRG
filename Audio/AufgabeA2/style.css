@@ -27,10 +27,20 @@ div {
     background: #2e41ac;
 }
 
+#distortionContainer {
+    background: #bb61af;
+}
+
 #selectList {
     font-size: 1em;
     font-family: monospace;
     margin: 1.5%;
+}
+
+#selectListFilter {
+    font-size: 1em;
+    font-family: monospace;
+    margin: 2%;
 }
 
 #parent {

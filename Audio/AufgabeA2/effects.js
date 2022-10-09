@@ -4,7 +4,7 @@ let source = context.createMediaElementSource(sound);
 let gain = context.createGain();
 let stereoPanner = context.createStereoPanner();
 let delay = context.createDelay(4.0);
-//Distortion hier rein
+let distortion = context.createWaveShaper();
 let convolver = context.createConvolver();
 let compressor = context.createDynamicsCompressor();
 let filter = context.createBiquadFilter();
@@ -12,10 +12,14 @@ let isPlaying = false;
 let sliders = document.getElementsByClassName("slider");
 let selectListFilter = document.querySelector("#selectListFilter");
 
+distortion.curve = makeDistortionCurve(0);
+distortion.oversample = "4x";
+
 gain.connect(compressor);
 compressor.connect(delay)
 delay.connect(filter);
-filter.connect(stereoPanner);
+filter.connect(distortion);
+distortion.connect(stereoPanner);
 stereoPanner.connect(context.destination);
 
 sound.loop = true;
@@ -83,6 +87,12 @@ function changeParameter() {
             delay.delayTime.value = delayValue;
             break;
 
+        //Distortion
+        case "distortionSlider":
+            document.querySelector("#distortionOutput").innerHTML = this.value;
+            distortion.curve = makeDistortionCurve(this.value);
+            break;
+            
         //Compressor
         case "thresholdSlider":
             compressor.threshold.value = (this.value - 100);
@@ -132,7 +142,19 @@ function changeParameter() {
     }
 }
 
+//Distortion
 
+function makeDistortionCurve(amount) {    
+    let n_samples = 44100,
+        curve = new Float32Array(n_samples);
+    
+    for (var i = 0; i < n_samples; ++i ) {
+        var x = i * 2 / n_samples - 1;
+        curve[i] = (Math.PI + amount) * x / (Math.PI + (amount * Math.abs(x)));
+    }
+    
+    return curve;
+};
 
 //Play Stop Button
 
