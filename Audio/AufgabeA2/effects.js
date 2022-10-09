@@ -6,10 +6,13 @@ let stereoPanner = context.createStereoPanner();
 let delay = context.createDelay(4.0);
 //Distortion hier rein
 let convolver = context.createConvolver();
+let compressor = context.createDynamicsCompressor();
 let isPlaying = false;
+let sliders = document.getElementsByClassName("slider");
 
-//convolver.connect(gain);
-gain.connect(delay);
+
+gain.connect(compressor);
+compressor.connect(delay)
 delay.connect(stereoPanner);
 stereoPanner.connect(context.destination);
 
@@ -65,13 +68,50 @@ function loadImpulseResponse(name) {
         .catch(console.error);
 }
 
-// Turn Off Button
+//Turn Off Button
 
 document.querySelector("#reverbOff").addEventListener("click", function (e) {
     if (convolver) {convolver.disconnect();}
 
     source.connect(gain);
 });
+
+//Compressor
+
+for (let i = 0; i < sliders.length; i++) {
+    sliders[i].addEventListener("mousemove", changeParameter)
+}
+
+function changeParameter() {
+    switch(this.id) {
+        case "thresholdSlider":
+            compressor.threshold.value = (this.value - 100);
+            document.querySelector("#thresholdOutput").innerHTML = (this.value - 100) + " dB";
+            break;
+
+        case "ratioSlider":
+            compressor.ratio.value = (this.value / 5);
+            document.querySelector("#ratioOutput").innerHTML = (this.value / 5) + " dB";
+            break;
+
+        case "kneeSlider":
+            compressor.knee.value = (this.value / 2.5);
+            document.querySelector("#kneeOutput").innerHTML = (this.value / 2.5) + " degree";
+            break;
+
+        case "attackSlider":
+            compressor.attack.value = (this.value / 1000);
+            document.querySelector("#attackOutput").innerHTML = (this.value / 1000) + " sec";
+            break;
+
+        case "releaseSlider":
+            compressor.release.value = (this.value / 1000);
+            document.querySelector("#releaseOutput").innerHTML = (this.value / 1000) + " sec";
+            break;
+    }
+}
+
+
 
 //Play Stop Button
 
