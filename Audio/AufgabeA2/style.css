@@ -33,34 +33,76 @@ div {
     margin: 1.5%;
 }
 
-#compressorHead {
+#parent {
+    display: flex;
+    font-size: 0.75em;
+}
+
+#compressor {
     width: 50%;
+}
+
+#filter {
+    flex: 1;
+}
+
+#compressorHead {
+    width: 100%;
     margin-top: 2%;
 }
 
 #thresholdContainer {
     background: #d6ae95;
-    width: 50%;
+    width: 100%;
 }
 
 #ratioContainer {
     background: #dda785;
-    width: 50%;
+    width: 100%;
 }
 
 #kneeContainer {
     background: #db976d;
-    width: 50%;
+    width: 100%;
 }
 
 #attackContainer {
     background: #db8b5a;
-    width: 50%;
+    width: 100%;
 }
 
 #releaseContainer {
     background: #db824a;
-    width: 50%;
+    width: 100%;
+}
+
+#filterHead {
+    margin-top: 2%;
+}
+
+#frequencyContainer {
+    background: #d69595;
+    width: 100%;
+}
+
+#detuneContainer {
+    background: #dd8585;
+    width: 100%;
+}
+
+#qContainer {
+    background: #db6d6d;
+    width: 100%;
+}
+
+#gainContainerFilter {
+    background: #db5a5a;
+    width: 100%;
+}
+
+#typeContainer {
+    background: #db4a4a;
+    width: 100%;
 }
 
 #playStopButton {

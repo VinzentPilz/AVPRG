@@ -33,6 +33,10 @@
             <button id="reverbOff">Turn Off</button>
         </div>
         
+        <div id="parent">
+        
+        <div id="compressor">
+
         <div id="compressorHead">
             Compressor
         </div>
@@ -61,6 +65,51 @@
             <input type="range" min="0" max="1000" value="10" class="slider" id="releaseSlider">
             <span id="releaseOutput">0.25 sec</span>
         </div>
+
+        </div>
+
+        <div id="filter">
+
+        <div id="filterHead">
+            Filter
+        </div>
+
+        <div id="frequencyContainer">Frequency
+            <input type="range" min="1000" max="20000" value="1000" class="slider" id="frequencySlider">
+            <span id="frequencyOutput">1000 Hz</span>
+        </div>
+
+        <div id="detuneContainer">Detune
+            <input type="range" min="0" max="100" value="0" class="slider" id="detuneSlider">
+            <span id="detuneOutput">0 cents</span>
+        </div>
+
+        <div id="qContainer">Quality
+            <input type="range" min="0" max="100" value="0" class="slider" id="qSlider">
+            <span id="qOutput">0</span>
+        </div>
+        
+        <div id="gainContainerFilter">Gain
+            <input type="range" min="-40" max="40" value="0" class="slider" id="gainSlider">
+            <span id="gainOutput">0 dB</span>
+        </div>
+
+        <div id="typeContainer">Type
+            <select id="selectListFilter">
+                <option value="lowpass">Lowpass</option>
+                <option value="highpass">Highpass</option>
+                <option value="bandpass">Bandpass</option>
+                <option value="allpass">Allpass</option>
+                <option value="lowshelf">Lowshelf</option>
+                <option value="highshelf">Highshelf</option>
+                <option value="peaking">Peaking</option>
+                <option value="notch">Notch</option>
+            </select>
+        </div>
+
+    </div>
+
+    </div>
 
         <script src="effects.js"></script>
         <!--------------------------------------->
