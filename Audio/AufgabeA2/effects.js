@@ -7,40 +7,18 @@ let delay = context.createDelay(4.0);
 //Distortion hier rein
 let convolver = context.createConvolver();
 let compressor = context.createDynamicsCompressor();
+let filter = context.createBiquadFilter();
 let isPlaying = false;
 let sliders = document.getElementsByClassName("slider");
-
+let selectListFilter = document.querySelector("#selectListFilter");
 
 gain.connect(compressor);
 compressor.connect(delay)
-delay.connect(stereoPanner);
+delay.connect(filter);
+filter.connect(stereoPanner);
 stereoPanner.connect(context.destination);
 
 sound.loop = true;
-
-//Gain
-
-document.querySelector("#gainSlider").addEventListener("input", function(e) {
-    let gainValue = (this.value / 10);
-    document.querySelector("#gainOutput").innerHTML = gainValue + " dB";
-    gain.gain.value = gainValue;
-});
-
-//Panning
-
-document.querySelector("#panningSlider").addEventListener("input", function(e) {
-    let panValue = ((this.value - 50) / 50);
-    document.querySelector("#panningOutput").innerHTML = panValue + " LR";
-    stereoPanner.pan.value = panValue;
-});
-
-//Delay
-
-document.querySelector("#delaySlider").addEventListener("input", function(e) {
-    let delayValue = (this.value / 25);
-    document.querySelector("#delayOutput").innerHTML = delayValue + " sec";
-    delay.delayTime.value = delayValue;
-});
 
 //Convolver
 
@@ -76,7 +54,7 @@ document.querySelector("#reverbOff").addEventListener("click", function (e) {
     source.connect(gain);
 });
 
-//Compressor
+//Slider Event Listener
 
 for (let i = 0; i < sliders.length; i++) {
     sliders[i].addEventListener("mousemove", changeParameter)
@@ -84,6 +62,28 @@ for (let i = 0; i < sliders.length; i++) {
 
 function changeParameter() {
     switch(this.id) {
+        //Gain
+        case "gainSlider":
+            let gainValue = (this.value / 10);
+            document.querySelector("#gainOutput").innerHTML = gainValue + " dB";
+            gain.gain.value = gainValue;
+            break;
+
+        //Panning
+        case "panningSlider":
+            let panValue = ((this.value - 50) / 50);
+            document.querySelector("#panningOutput").innerHTML = panValue + " LR";
+            stereoPanner.pan.value = panValue;
+            break;
+
+        //Delay
+        case "delaySlider":
+            let delayValue = (this.value / 25);
+            document.querySelector("#delayOutput").innerHTML = delayValue + " sec";
+            delay.delayTime.value = delayValue;
+            break;
+
+        //Compressor
         case "thresholdSlider":
             compressor.threshold.value = (this.value - 100);
             document.querySelector("#thresholdOutput").innerHTML = (this.value - 100) + " dB";
@@ -107,6 +107,27 @@ function changeParameter() {
         case "releaseSlider":
             compressor.release.value = (this.value / 1000);
             document.querySelector("#releaseOutput").innerHTML = (this.value / 1000) + " sec";
+            break;
+
+        //Filter
+        case "frequencySlider":
+            filter.frequency.value = (this.value);
+            document.querySelector("#frequencyOutput").innerHTML = (this.value) + " Hz";
+            break;
+
+        case "detuneSlider":
+            filter.detune.value = (this.value);
+            document.querySelector("#detuneOutput").innerHTML = (this.value) + " cents";
+            break;
+
+        case "qSlider":
+            filter.Q.value = (this.value);
+            document.querySelector("#qOutput").innerHTML = (this.value) + " ";
+            break;
+
+        case "gainSliderFilter":
+            filter.gain.value = (this.value);
+            document.querySelector("#gainOutputFilter").innerHTML = (this.value) + " dB";
             break;
     }
 }
